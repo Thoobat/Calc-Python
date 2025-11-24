@@ -70,6 +70,9 @@ jobs:
         with:
           name: zap-report
           path: zap-output/*
+          
+      - name: Clean pycache
+        run: find src -name "*.pyc" -delete
 
 
       # 10. SonarQube scan
