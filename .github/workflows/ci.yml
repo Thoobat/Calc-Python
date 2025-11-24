@@ -29,7 +29,7 @@ jobs:
       - run: echo "PYTHONPATH=$(pwd)/src:$PYTHONPATH" >> $GITHUB_ENV
 
       # 5. Run pytest with coverage
-      - run: pytest --cov=src --cov-branch --cov-report=xml
+      - run: pytest --cov=src --cov-branch --cov-report=xml:coverage.xml
 
       # Login to Docker Hub
       - name: Login to Docker Hub
