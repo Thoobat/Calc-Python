@@ -1,1 +1,5 @@
-coverage
+fastapi
+uvicorn
+pytest
+pytest-cov
+httpx
