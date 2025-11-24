@@ -10,7 +10,7 @@ on:
 jobs:
 
   tests:
-    name: Run Unit Tests
+    name: Run Unit Tests and Coverage
     runs-on: ubuntu-latest
 
     steps:
@@ -23,21 +23,20 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install fastapi uvicorn pytest requests httpx
+          pip install fastapi uvicorn pytest requests httpx pytest-cov
 
-      - name: Run Tests
-        run: pytest -v
-
+      - name: Run Tests with Coverage
+        run: pytest --cov=. --cov-report=xml
 
   sonarqube:
     name: SonarQube
     runs-on: ubuntu-latest
-    needs: tests  # Wait until tests finish successfully
+    needs: tests   # wait for tests to finish successfully
 
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Required for proper Sonar analysis
+          fetch-depth: 0
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@fd88b7d7ccbaefd23d8f36f73b59db7a3d246602
