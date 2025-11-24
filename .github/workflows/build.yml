@@ -26,10 +26,12 @@ jobs:
           pip install fastapi uvicorn pytest requests httpx pytest-cov
 
       - name: Run Tests with Coverage
-        run: pytest --cov=. --cov-report=xml
+        # Set PYTHONPATH so Python can find src/main.py
+        run: |
+          PYTHONPATH=$PYTHONPATH:$(pwd)/src pytest --cov=src --cov-report=xml
 
   sonarqube:
-    name: SonarQube
+    name: SonarQube Scan
     runs-on: ubuntu-latest
     needs: tests   # wait for tests to finish successfully
 
@@ -42,3 +44,4 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@fd88b7d7ccbaefd23d8f36f73b59db7a3d246602
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
